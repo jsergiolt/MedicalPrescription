@@ -46,12 +46,12 @@
                 <ul class="nav" id="main-menu">
 
 
-
+                    
                     <li class="active-link">
                         <a href="prescricao.html"><i class="fa fa-desktop "></i>Prescrição Médica </a>
                     </li>
 
-
+                    <!--
                     <li >
                         <a href="ui.html"><i class="fa fa-table "></i>UI Elements </a>
                     </li>
@@ -76,6 +76,7 @@
                     <li>
                         <a href="#"><i class="fa fa-edit "></i>My Link Five </a>
                     </li>
+                    -->
                 </ul>
             </div>
 
@@ -91,44 +92,54 @@
                 <!-- /. ROW  -->
                 <hr />
 
-                <!-- TXT Medicamento-->
+                
                 <div class="row">
+                    <!-- TXT Medicamento-->
                     <div class="col-lg-6 col-md-4">
                         <div class="form-group">
                             <label>Medicamento</label>
-                            <input class="form-control" />
+                            <input class="form-control" id="medicamentoTxt" />
                             <!--<p class="help-block">Help text here.</p>-->
                         </div>
                     </div>
 
                     <div class="col-lg-2 col-md-4">
+                        <!-- TXT Quantidade-->
                         <div class="form-group">
                             <label>Quantidade</label>
-                            <input class="form-control" />
+                            <input class="form-control" id="qtdTxt" />
                             <!--<p class="help-block">Help text here.</p>-->
                         </div>
                     </div>
+                </div>
 
-
+                
+                <div class="row">
                     <!-- TXT Posologia-->
-
                     <div class="col-lg-8 col-md-4">
                         <div class="form-group">
                             <label>Posologia</label>
-                            <input class="form-control" />
+                            <input class="form-control" id="posologiaTxt" />
                             <!--<p class="help-block">Help text here.</p>-->
                         </div>
                     </div>
 
 
-
+                    <!-- BTN Inculir-->
+                    <div class="col-lg-4 col-md-4">
+                        <a href="#" class="btn btn-primary" onclick="adicionaMedicamento()">INCLUIR</a>
+                        <a href="#" class="btn btn-danger" onclick="limpaMatrizMedicamento()">LIMPAR</a>
+                    </div>
                 </div>
+
+
+                
 
 
 
                 <!-- Tabela que vai mostrar os medicamentos -->
                 <div class="row">
-                    <div class="col-lg-10 col-md-6">
+                    <div class="col-lg-10 col-md-6" id="medTable">
 
 
 
@@ -498,6 +509,91 @@
     <script src="assets/js/bootstrap.min.js"></script>
     <!-- CUSTOM SCRIPTS -->
     <script src="assets/js/custom.js"></script>
+
+    <!-- JSCRIPT TABLE CONTROLLER-->
+    <script>
+
+        _matrizMedicamentos = []
+        // adiciona novo medicamento a matriz
+        function adicionaMedicamento(){
+            var leng = _matrizMedicamentos.length
+
+            _matrizMedicamentos[leng] = [
+                document.getElementById('medicamentoTxt').value,
+                document.getElementById('qtdTxt').value,
+                document.getElementById('posologiaTxt').value
+            ]
+            //alert(_matrizMedicamentos + "Lenght = " + leng)
+        }
+
+        // limpa matriz
+        function limpaMatrizMedicamento(){
+            _matrizMedicamentos = [] 
+            alert(_matrizMedicamentos)
+        }
+
+        // remove linha selecionada da matriz - TESTAR
+        function removeIndiceMatrizMedicamento(n){
+            numeros.indexOf(n);
+            if (index > -1) {
+                _matrizMedicamentos = _matrizMedicamentos.splice(index, 1) 
+                alert(_matrizMedicamentos)
+            }
+        }
+
+
+
+
+        function geraHtmlTabela(){
+            var headTabela = ""
+            
+                "<h5>Resumo da Prescrição</h5>"+
+
+                "<table class='table table-striped table-bordered table-hover'>"+
+                    "<thead>"+
+                        "<tr>"+
+                            "<th>#</th>"+
+                            "<th>Princípio Ativo</th>"+
+                            "<th>Quantidade</th>"+
+                            "<th>Posologia</th>"+
+                        "</tr>"+
+                    "</thead>"
+
+            var bodyTabela = ""+
+
+                    "<tbody>"+
+                        "<tr>"+
+                            "<td>1</td>"+
+                            "<td>LOSARTANA 50 MG</td>"+
+                            "<td>TOMAR 01 COMPRIMIDO A CADA 12 HORAS</td>"+
+                            "<td>CONTINUO</td>"+
+                        "</tr>"+
+                        "<tr>"+
+                            "<td>2</td>"+
+                            "<td>HIDROCLOROTIAZIDA 25 MG</td>"+
+                            "<td>TOMAR 01 COMPRIMIDO PELA MANHÃ</td>"+
+                            "<td>CONTÍNUO</td>"+
+                        "</tr>"+
+                        "<tr>"+
+                            "<td>3</td>"+
+                            "<td>ANLODIPINO 5 MG</td>"+
+                            "<td>TOMAR 01 COMPRIMIDO PELA MANHÃ</td>"+
+                            "<td>CONTÍNUO</td>"+
+                        "</tr>"+
+                        "<tr>"+
+                            "<td>4</td>"+
+                            "<td>SINVASTATINA 20 MG</td>"+
+                            "<td>TOMAR 01 COMPRIMIDO PELA NOITE</td>"+
+                            "<td>CONTÍNUO</td>"+
+                        "</tr>"+
+                    "</tbody>"+
+                "</table>"
+            
+
+
+        }
+                
+    </script>
 
 
 </body>
