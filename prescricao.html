@@ -15,7 +15,7 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
 
-<body onload="getListaMedicamentos()">
+<body>
 
 
 
@@ -46,7 +46,7 @@
                 <ul class="nav" id="main-menu">
 
 
-                    
+
                     <li class="active-link">
                         <a href="prescricao.html"><i class="fa fa-desktop "></i>Prescrição Médica </a>
                     </li>
@@ -92,21 +92,25 @@
                 <!-- /. ROW  -->
                 <hr />
 
-                
+
                 <div class="row">
+                    <!-- TXT Paciente-->
+                    <div class="col-lg-8 col-md-4">
+                        <div class="form-group">
+                            <label>Paciente</label>
+
+                            <input class="form-control" id="pacienteTxt" autocomplete="off" />
+                            <!--<p class="help-block">Help text here.</p>-->
+                        </div>
+                    </div>
+
                     <!-- TXT Medicamento-->
                     <div class="col-lg-6 col-md-4">
                         <div class="form-group">
                             <label>Medicamento</label>
 
-                            <input class="form-control" id="medicamentoTxt" list="listaMedicamentos"  />
-                            <datalist id="listaMedicamentos">
-
-                                <!--<option value="Chocolate"></option>
-                                <option value="Coconut"></option>
-                                <option value="Mint"></option>
-                                <option value="Strawberry"></option>
-                                <option value="Vanilla"></option>-->
+                            <input class="form-control" id="medicamentoTxt" list="listaMed" autocomplete="off" />
+                            <datalist id="listaMed">
                             </datalist>
 
                             <!--<p class="help-block">Help text here.</p>-->
@@ -117,41 +121,39 @@
                         <!-- TXT Quantidade-->
                         <div class="form-group">
                             <label>Quantidade</label>
-                            <input class="form-control" id="qtdTxt" />
+                            <input class="form-control" id="qtdTxt" autocomplete="off" />
                             <!--<p class="help-block">Help text here.</p>-->
                         </div>
                     </div>
                 </div>
 
-                
+
                 <div class="row">
                     <!-- TXT Posologia-->
                     <div class="col-lg-8 col-md-4">
                         <div class="form-group">
                             <label>Posologia</label>
-                            <input class="form-control" id="posologiaTxt" />
+                            <input class="form-control" id="posologiaTxt" autocomplete="off" />
                             <!--<p class="help-block">Help text here.</p>-->
                         </div>
                     </div>
-
-
-                    <!-- BTN Inculir-->
-                    <div class="col-lg-4 col-md-4">
-                        <a href="#" class="btn btn-primary" onclick="adicionaMedicamento()">INCLUIR</a>
-                        <a href="#" class="btn btn-danger" onclick="limpaMatrizMedicamento()">LIMPAR</a>
-                    </div>
                 </div>
 
+                <div class="row">
+                    <!-- BTN Inculir-->
+                    <div class="col-lg-4 col-md-4">
+                        <div class="form-group">
+                            <a href="#" class="btn btn-primary" onclick="adicionaMedicamento()">INCLUIR</a>
+                            <a href="#" class="btn btn-danger" onclick="limpaMatrizMedicamento()">LIMPAR</a>
+                            <a href="#" class="btn btn-success" onclick="limpaMatrizMedicamento()">IMPRIMIR</a>
+                        </div>
+                    </div>
 
-                
-
-
+                </div>
 
                 <!-- Tabela que vai mostrar os medicamentos -->
                 <div class="row">
                     <div class="col-lg-10 col-md-6" id="medTable">
-
-
 
                         <h5>Resumo da Prescrição</h5>
 
@@ -201,6 +203,19 @@
     <script src="assets/js/custom.js"></script>
     <!-- JSCRIPT TABLE CONTROLLER-->
     <script src="assets/js/table.js"></script>
+
+    <script>
+        let dataListMedicamentos = document.querySelector("#listaMed")
+
+        fetch("listaMedicamentos.json").then((response) => {
+            response.json().then((medicamentos) => {
+                //console.log(medicamentos);
+                medicamentos.medicamentos.map((medicamento) => {
+                    dataListMedicamentos.innerHTML += `<option value = "${medicamento.PRODUTO}"></option>`
+                })
+            })
+        })
+    </script>
 
 
 </body>

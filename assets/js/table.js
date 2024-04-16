@@ -11,7 +11,32 @@ function adicionaMedicamento(){
     ]
     //alert(_matrizMedicamentos + "Lenght = " + leng)
 
-    geraHtmlTabela();
+    updateTable();
+}
+
+// remove linha selecionada da matriz - TESTAR
+function excluiMedicamento(n){
+    for (var i=0; i< _matrizMedicamentos.length; i++){
+        var item = i+1
+        if(item==n){
+            // deletar linha
+            _matrizMedicamentos.splice(i, 1);
+            
+        }
+    }
+
+
+    /*var index = _matrizMedicamentos.indexOf(n);
+    if (index > -1) {
+
+        _matrizMedicamentos = _matrizMedicamentos.splice(index, 1);
+    }else{
+        console.log("Não encontrou elemento indice" +n)
+
+    }*/
+
+    console.log(_matrizMedicamentos)
+    updateTable()
 }
 
 // limpa matriz
@@ -19,20 +44,13 @@ function limpaMatrizMedicamento(){
     _matrizMedicamentos = [] 
     //alert(_matrizMedicamentos)
 
-    geraHtmlTabela();
-}
-
-// remove linha selecionada da matriz - TESTAR
-function removeIndiceMatrizMedicamento(n){
-    numeros.indexOf(n);
-    if (index > -1) {
-        _matrizMedicamentos = _matrizMedicamentos.splice(index, 1) 
-        //alert(_matrizMedicamentos)
-    }
+    updateTable();
 }
 
 
-function geraHtmlTabela(){
+
+
+function updateTable(){
     var headTabela = ""+
     
         "<h5>Resumo da Prescrição</h5>"+
@@ -52,7 +70,7 @@ function geraHtmlTabela(){
         var item = i+1
         linhaTabela += ""+
                 "<tr>"+
-                    "<td>"+item+"</td>"+
+                    "<td width=100><div class='col-lg-2 col-md-4'>"+item+"</div><div class='col-lg-2 col-md-4'><a href='#' style='color:#f00;' onclick='excluiMedicamento("+item+")'>X</a></div></td>"+
                     "<td>"+_matrizMedicamentos[i][0]+"</td>"+
                     "<td>"+_matrizMedicamentos[i][1]+"</td>"+
                     "<td>"+_matrizMedicamentos[i][2]+"</td>"+
@@ -60,7 +78,7 @@ function geraHtmlTabela(){
     }
 
     var bodyTabela = ""+
-            "<tbody>"+
+            "<tbody>"+   
                 linhaTabela+
             "</tbody>"+
         "</table>"  
@@ -69,17 +87,11 @@ function geraHtmlTabela(){
 
     document.getElementById("medTable").innerHTML = htmlTabela;
 
-}
-
-function getListaMedicamentos(){
- 
-
-    var jsonList = $.getJSON("assets/js/listaMedicamentos.json", function(json) {
-        console.log(json); // this will show the info it in firebug console
-        
-    });
-
-    alert(jsonList[0].ID + "")
+    document.getElementById('medicamentoTxt').value = ""
+    document.getElementById('qtdTxt').value = ""
+    document.getElementById('posologiaTxt').value =""
 
 }
+
+
 
